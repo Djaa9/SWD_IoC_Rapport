@@ -5,7 +5,9 @@
 \section{Indhold}
 Inversion of Control er et design pattern som er vidt udbredt i eventdrevne systemer hvor klassernes afhængigheder af hinanden ikke nødvendigvis er fastlagt compile time. 
 
-IoC design patterenet implementeres som oftests gennem et framework. Frameworket søger for at danne et stykke kode, en såkaldt IoC container, som får tildelt flow control run time. Blandt de mest udbredte frameworks til .NET kan nævnes Autofac, Unity, Castle og Ninject \footnote{Scott Hanselman \href{http://www.hanselman.com/blog/ListOfNETDependencyInjectionContainersIOC.aspx}{Link}}. IoC framework anvendes også i vid udstrækning på Android\footnote{leftshift \href{http://leftshift.io/android-inversion-of-control-dependency-injection-dagger-part-1}{Link}}, iOS\footnote{stackoverflow \href{http://stackoverflow.com/questions/8782398/recommended-ioc-framework-for-ios}{Link}} og andre platforme som anvender event driven programming.
+IoC design patterenet implementeres som oftests gennem et framework. Frameworket søger for at danne et stykke kode, en såkaldt IoC container, som får tildelt flow control run time. Blandt de mest udbredte frameworks til .NET kan nævnes Autofac, Unity, Castle og Ninject \footnote{Scott Hanselman \href{http://www.hanselman.com/blog/ListOfNETDependencyInjectionContainersIOC.aspx}{Link}}. IoC frameworks anvendes også i vid udstrækning på Android\footnote{leftshift \href{http://leftshift.io/android-inversion-of-control-dependency-injection-dagger-part-1}{Link}}, iOS\footnote{stackoverflow \href{http://stackoverflow.com/questions/8782398/recommended-ioc-framework-for-ios}{Link}} og andre platforme som anvender event driven programming.
+
+\figur{koncept}{Konceptet bag IoC}{fig:concept}{0.5}
 
 De fleste frameworks har det til fælles at de anvender dependency injection. En IoC container konfigureres i kode og delegeres flow control i en bootstrapper eller .config fil eller lignende når programmet startes. Herefter er det containerens ansvar at instantiere klasser runtime efterhånden som programmet har behov for dem. 
 
@@ -13,4 +15,4 @@ De fleste frameworks har det til fælles at de anvender dependency injection. En
 IoC anvender dependency injection til at skabe mindre afhængighed mellem generiske klasse i et program. Inversion of control tager kontrollen fra den enkelte klasse og skaber et design pattern som er mere hensigtsmæssig en dependency inversion og factory patterens i systemer som er eventdrevne og hvor alle afhængigheder i et system derfor ikke er bestemte compile time. IoC implementeres som en container i et stykke af koden som overlades flow control.
 
 \section{Konsekvenser}
-Nemmere at udvide. Nemmere at genbrug klasser i andre programmer. Nemmere at porte til andre platforme.
+Konsekvensen ved at bruge inversion of control er uafhængige klasser som er fuldstændigt afkoblede. Klasserne har ingen indbyrdes afhængihed og fungerer derfor nærmere som er service andre klasser kan anvende. IoC gør ens program mere skalerbar. Det gør klasserne nemmere at genbruge i andre programmer. Klassernes indbyrdes uafhængighed gør desuden programmet mere egnet i et event drevet system i modsætning til sekventielt afviklet kode.
