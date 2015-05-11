@@ -2,9 +2,9 @@
 \chapter{Sammenligning}
 \label{chp:comparison}
 
-\section{Problemet uden IOC}
+\section{Problemet uden IoC}
 
-For at forstå IOC er et godt udgangspunkt problematikkerne der kan opstå hvis man ikke benytter sig af dette designprincip. Nedenstående eksempel består af en Customer klasse som indeholder et Address objekt. Problemet er den tætte kobling mellem Customer og Address - hvis Address klassen på noget tidspunkt ændrer sig, vil dette også have indflydelse på kompileringen af Customer klassen.
+For at forstå IoC design princippet, er et godt udgangspunkt problematikkerne der kan opstå, hvis man ikke benytter sig af dette. Nedenstående eksempel består af en Customer klasse som indeholder et Address objekt. Problemet er den tætte kobling mellem Customer og Address - hvis Address klassen på noget tidspunkt ændrer sig, vil dette også have indflydelse på kompileringen af Customer klassen.
 
 \figur{Customer1.png}{Customer og Address problemet}{fig:CustomerOgAddress}{0.4}
 
@@ -14,17 +14,18 @@ Endvidere er Customer klassen koblet direkte op mod Address klassen, så tilføj
 Generelt ses det også, at hvis Customer ikke kan oprette et Address objekt vil det ikke være muligt, at konstruere et Customer objekt.
 
 
-\section{Generel løsning af problemet}
+\section{Problemets generelle løsning}
 
-Problemerne opstår generelt når oprettelsen af et objekt foregår inde i en klassen. Det vil derfor, i Customer Address eksemplet, være ideelt at flytte oprettelsen af Address objektet fra Customer klassen til en anden klasse. I stedet for at Customer har kontrollen af oprettelse af objekter, gives denne til en anden klassen. Dette er den primære ide bag design princippet Inversion of Control (IOC).
+Problemerne opstår generelt når oprettelsen af et objekt foregår inde i en klassen. Det vil derfor, i Customer Address eksemplet, være ideelt at flytte oprettelsen af Address objektet fra Customer klassen til en anden klasse. I stedet for at Customer har kontrollen af oprettelse af objekter, gives denne til en anden klassen. Dette er den primære ide bag design princippet Inversion of Control (IoC).
 Dette princip er også defineret som Hollywood princippet: "Don't call us we will call you" eller fra Address objektets synsvinkel: "Don't create me I will create my self using some one else".
 
 
-\section{Specifikke måder at implementere IOC}
+\section{Specifikke måder at implementere IoC}
 
 IOC er et design princip, som i sig selv ikke løser problemerne. Det er her Dependency Injection (DI) kommer ind i billedet, som er en måde at implementere IOC på. 
 
 \figur{IOC.png}{IOC i relation til DI}{fig:IOCandDI}{0.6}
+\FloatBarrier
 
 Der er fire måder hvor på DI kan implementeres: 
 
@@ -39,21 +40,17 @@ Alt afhængig af hvordan DI benyttes i programmet, kan de forskellige DI metoder
 
 \figur{DI.png}{Customer og Address constructor DI}{fig:constructorDI}{0.5}
 
-\todo[inline]{Sammenligne emnet med andre, tilsvarende emner. Disse maa gerne have vaeret behandlet i undervisningen.}
-
 \section{Factory}
 
 Den faktiske måde DI bliver implementeret på er også forskellig. Det er muligt, at oprette alle de afhængige objekter i en enkelte klasse, eksempelvis main(), og sende dem videre ned i de oprettede objekter. Det primære problem er, at når oprettelsen af objekter sker i en enkelt klasse opstår der alligevel høj kobling. Eksempelvis, når en concrete klasse skal udvides med en ekstra constructor parameter, skal alle overstående klasser implementere denne. Dette kan dog løses ved hjælp af Factory design mønstret. 
 
 \figur{Factory.png}{Factory design pattern}{fig:constructorDI}{0.5}
 
-Her sendes der blot et Factory objekt rundt, som kan opfylde oprettelsen af de enkelte objekters behov. Selv om Factory kan løse mange af problemerne, er der dog stadig argumenter for, at dette ikke er et optimalt design. Det største problem med en Factory er, at den kan ikke genbruges i andre applikationer. Alle valg om oprettelse er med henblik på den nuværende applikation, og det er sjældent muligt, at klasser til en anden applikation. 
-
-\todo {Interface dependent and compile time}
+Her sendes der blot et Factory objekt rundt, som kan opfylde oprettelsen af de enkelte objekters behov. Selv om Factory kan løse mange af problemerne, er der dog stadig argumenter for, at dette ikke er et optimalt design. Det største problem med en Factory er, at den kan ikke genbruges i andre applikationer. Alle valg om oprettelse er med henblik på den nuværende applikation, og det er sjældent muligt, at klasser portere til en anden applikation. Endvidere er det et stort arbejde for compileren, at gennemføre runtime udskiftning af de enkelte Factories.
 
 
 \section{Container}
 
 En Container kan tage ansvaret for at oprette, konfigurere og holde styr på objekterne. Det er muligt, at konfigurere objekterne i Containeren, som også hjælper med at oprette og injecte objekterne i de respektive klasser. 
 
-I tilfældet med Customer og Address, vil Containeren være den, som registrer de to objekter separat og injecter Address objekt ind i Customer klassen. Disse Containers er ofte tilbudt som et framework, der gør det let at implementere og har et højt abstraktionsniveau.
+I tilfældet med Customer og Address, vil Containeren være den, som registrer de to objekter separat og injecter Address objekt ind i Customer klassen. Disse Containers er ofte tilbudt som et framework, der gør det let at implementere og har et højt abstraktionsniveau. I afsnit 3 fremstilles eksemplificeres implementeringen af en IoC container.

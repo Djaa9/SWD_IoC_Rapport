@@ -3,12 +3,12 @@
 \label{chp:examples}
 I dette afsnit vises eksempler på anvendelsen af to forskellige frameworks, et til .NET og et til Android. 
 \section{Autofac}
-Autofac er et af det mest anvendte frameworks til .NET. Autofac tilbydder IoC containers som via dependency injection, injecter alle afhængigheder til programmets klasser via deres constructorere. Autofac kan installeres som NuGet packages eller ved manuelt at tilføje Autofac's library filer til projektet.
+Autofac er et af det mest anvendte frameworks til .NET. Autofac tilbyder IoC containers som via Dependency Injection, injecter alle afhængigheder til programmets klasser via deres constructorere. Autofac kan installeres som NuGet packages eller ved manuelt at tilføje Autofac's library filer til projektet.
 
 \figur{examples/AutofacNugetInstall}{Installation af Autofac via NuGet}{fig:installautonuget}{0.7}
 
 \subsection{Konfiguration}
-Når Autofac er tilføjet til projektet skal containeren tildeles flow control over programmet. En et konsol program tilføjet dette ganske som forventet ved at configurere en container i starten af Main() som vist i figur \ref{fig:configureiocconsole}. Herefter køres metoden WriteData som er en metoden man selv implementere. WriteData sætter containers scope til applikationens og opsætter containerens lifecycle.
+Når Autofac er tilføjet til projektet skal containeren tildeles flow control over programmet. Et konsolprogram tilføjer dette ganske som forventet ved at configurere en container i starten af Main() som vist i figur \ref{fig:configureiocconsole}. Herefter køres metoden WriteData som er en metode man selv implementerer. WriteData sætter containers scope til applikationens scope.
 
 \figur{examples/AutofacConsoleAppRegister}{Konfiguration af IoC Container i konsol applikation}{fig:configureiocconsole}{0.5}
 \FloatBarrier
@@ -20,12 +20,12 @@ I WPF har man ikke adgang til programmets Main(). Her anvendes istedet programme
 Ved konfigurationen af sin container registrer man alle de klasser som containeren skal kunne injecte. Metoden er typisk at angive hvilken konkret klasse som containeren skal implementere for et interface. På den måde kan man hurtigt og enkelt skifte mellem implementeringer som det kendes fra et abstract factory pattern.
 
 \subsection{Injection}
-Efter at man har tildelt flow control til sin IoC container og registreret alle sine klasser som skal injectes, begynder den egentlige magi ved Autofac. Alle klasser instantieres automatisk af containeren når der er behov for dem. Autofac sørger desuden for at instantiere og constructor injecte alle parametre som en klasse har.
+Efter at man har tildelt flow control til sin IoC container og registreret alle sine klasser som skal injectes, begynder den egentlige magi ved Autofac. Alle klasser instantieres automatisk af containeren, når der er behov for dem. Autofac sørger desuden for at instantiere og constructor injecte alle parametre som en klasse har.
 
-Dette betyder at Autofac er fuldstændig usynlig og arbejder i baggrunden når man skriver sine klasser. Man søger bare for at angive alle sine afhængiheder som constructorparametre som Autofac herefter forsyner klassen med ved instantiering.
+Dette betyder, at Autofac er fuldstændig usynlig og arbejder i baggrunden når man skriver sine klasser. Man søger bare for at angive alle sine afhængiheder som constructorparametre som Autofac herefter forsyner klassen med ved instantiering.
 
 \section{RoboGuice}
-RoboGuice er et Denpendency injection framework til Android som også kan konfigureres til at anvende IoC containers. RoboGuice tilføjes til et project ved at importere referencerne i ens build.gradle eller pom.xml fil hvis man bruger Maven. Et eksempel på import i gradle kan ses i figur \ref{fig:importroboguice}
+RoboGuice er et Denpendency Injection framework til Android, som også kan konfigureres til at anvende IoC containers. RoboGuice tilføjes til et projekt ved at importere referencerne i ens build.gradle eller pom.xml fil hvis man bruger Maven. Et eksempel på import i gradle kan ses i figur \ref{fig:importroboguice}
 
 \figur{examples/RoboGuiceImport}{Import af RoboGuice i Android projekt}{fig:importroboguice}{0.45}
 
@@ -43,6 +43,6 @@ Implementeringen af RoBoModule ses i figur \ref{fig:roboclassreg} hvor klassen F
 
 \FloatBarrier
 \subsection{Injection}
-Syntaxen for injection anvender Android annotation (AA) til at property injecte afhængighederne i en klasse. I figur \ref{fig:roboinject} ses det hvorledes at klassen Foo injectes med syntaxen \emph{@Inject}. Bemærk at det er interfaceet IFoo som er angivet da dette er bundet til klassen Foo gennem konfigurationen i RoboModule som vist i forrige afsnit. På den måde ville det således være enkelt at skifte alle afhængiheder af Foo ud med eksempelvist Moo, ved blot at ændre bindingen.
+Syntaxen for injection anvender Android Annotation (AA) til at property injecte afhængighederne i en klasse. I figur \ref{fig:roboinject} ses det hvorledes at klassen Foo injectes med syntaxen \emph{@Inject}. Bemærk at det er interfacet IFoo som er angivet da dette er bundet til klassen Foo gennem konfigurationen i RoboModule som vist i forrige afsnit. På den måde ville det således være enkelt at skifte alle afhængiheder af Foo ud med eksempelvist Moo, ved blot at ændre bindingen.
 
 \figur{examples/RoboGuiceInject}{Injection af klasser med RoboGuice}{fig:roboinject}{0.55}
