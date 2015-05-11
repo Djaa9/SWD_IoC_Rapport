@@ -1,4 +1,7 @@
 \thispagestyle{fancy}
 \chapter{Konklusion}
 \label{chp:Konklusion}
-\todo[inline]{Konkludere paa emnet – hvornår giver det bedst mening at anvende emnet, og i hvilke(n) situation(er) giver det ingen mening?}
+IoC giver mest mening i eventdrevne systemer hvor ansvaret for instantiering af klasser ikke nødvendigvis kan placeres i egne klasser. Med IoC Containers oprettes objekter når der er brug for dem og nedlægges når de ikke længere er nødvendige. 
+IoC containers skaber lav afhængighed mellem klasser og gør det nemmere at opfylde Open/close og dependency inversion principperne.
+Den lave lave kopling gør det desuden nemmere at genbruge klasser i andre applikationer da de ikke er bundet til en custom factory.
+IoC kan påvirke et programs performance, og er muligvis ikke det bedste valg i mindre ikke-eventdrevne applikationer. 
